@@ -19,16 +19,12 @@ function gh --description 'Open the webpage for the current github repo/branch'
 
   set -l branch (command git rev-parse --abbrev-ref HEAD)
 
-  switch $branch
-    case master
-      set url (echo $fetch_url | sed 's|git@github.com:\(.*\)\.git|https://github.com/\1|')
-    case HEAD
-      # we couldn't find a branch or tag, so lets get a sha
-      set branch (command git rev-parse HEAD)
-      set url (echo "$fetch_url/tree/$branch" | sed 's|git@github.com:\(.*\)\.git|https://github.com/\1|')
-    case '*'
-      set url (echo "$fetch_url/tree/$branch" | sed 's|git@github.com:\(.*\)\.git|https://github.com/\1|')
+  if [ $branch = 'HEAD' ]
+    # we couldn't find a branch or tag, so lets get a sha
+    set branch (command git rev-parse HEAD)
   end
 
-  open $url
+  set url (echo "$fetch_url/tree/$branch" | sed 's|git@github.com:\(.*\)\.git|https://github.com/\1|')
+
+  open "$url/$argv"
 end
