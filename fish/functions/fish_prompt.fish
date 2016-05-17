@@ -490,6 +490,7 @@ function fish_prompt -d 'bobthefish, a fish theme optimized for awesome'
   end
   __bobthefish_finish_segments
 
+  history --merge
   # update `z`
   z --add "$PWD"
 end
