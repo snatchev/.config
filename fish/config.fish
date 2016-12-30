@@ -4,12 +4,9 @@ status --is-interactive; and . (rbenv init -|psub)
 set -x GOPATH $HOME/gocode
 set -x PATH $HOME/go_appengine $PATH $GOPATH/bin
 
-set VIM $HOME/vim
-set EDITOR /usr/local/bin/nvim
+set -g EDITOR /usr/local/bin/nvim
 
-if docker-machine status dev > /dev/null
-  eval (docker-machine env dev)
-end
+set -x HOSTNAME (hostname)
 
 abbr -a e="edit"
 abbr -a gs="git status"
